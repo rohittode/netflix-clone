@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search</title>
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js" integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="search.css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,700" rel="stylesheet">
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    
+</head>
+<body>
+
+    <header>
+        
+        <div class="header-main">
+            <div class="container">
+                <nav id='cssmenu'>
+                    <div class="logo">
+                        <a href="/Home"><img src="https://rb.gy/ulxxee"></a>
+                    </div>
+                    <div id="head-mobile"></div>
+                    <div class="button"></div>
+                    <ul>
+                        <li ><a href='/Home'>Home</a></li>
+                        <li><a href='/MyMovie'>Movies</a></li>
+                        <li><a href='/MyList'>My List</a></li>
+                        <li><a href='/Favourite'>Favourite</a></li>
+                        div class="logo">
+                        <a href="/account"><img src="https://rb.gy/g1pwyx"></a>
+                    </div>
+                    </ul>
+                    
+                </nav>
+            </div>
+        </div>
+    </header>
+
+
+
+
+    
+	
+	
+
+
+    <div class="searchBox">
+
+        <input class="searchInput"type="text" id="query" name="" placeholder="Search">
+        <button class="searchButton" id="searchBtn">
+            <i class="material-icons">
+                search
+            </i>
+        </button><br><br><br><br>
+        <img src="" alt="image" class="poster" id="poster">
+        <hr>
+        <p>Name :</p>
+        <p id="movie_name"></p>
+        <br>
+        <p>Description :</p> 
+        <p id="movie_desc"></p>
+        <br>
+        <p>popularity :  </p> 
+        <p id="movie_pop"></p>
+        <br>
+        <p>Release date :</p> 
+        <p id="movie_date"></p>
+        <br>
+        <p>Vote  average :</p> 
+        <p id="movie_vote_avg"></p>
+        <br>
+        <p>Vote Count :</p> 
+        <p id="movie_vote_count"></p>
+    </div>
+    
+   
+    <script>
+
+        $('#searchBtn').click(function(){
+
+            let query=$('#query').val();
+
+            $.getJSON("https://api.themoviedb.org/3/search/movie?api_key=f81980ff410e46f422d64ddf3a56dddd&language=en-US&query="+query+"&page=1&include_adult=false",function(data){
+            console.log(data.results[0])
+            $('#movie_name').html(data.results[0].title)
+            $('#movie_desc').html(data.results[0].overview)
+            $('#poster').attr("src","https://image.tmdb.org/t/p/original/"+data.results[0].poster_path)
+            $('#movie_pop').html(data.results[0].popularity)
+            $('#movie_date').html(data.results[0].release_date)
+            $('#movie_vote_avg').html(data.results[0].vote_average)
+            $('#movie_vote_count').html(data.results[0].vote_count)
+        })
+        })
+
+    </script>
+
+    <style>
+        .poster{
+            width: 200px;;
+        }
+    </style>
+
+
+
+</body>
+</html>
